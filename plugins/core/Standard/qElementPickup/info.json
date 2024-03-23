@@ -1,0 +1,18 @@
+{
+	"type" : "Standard",
+	"name" : "element pickup (Standard Plugin)",
+	"icon" : ":/CC/plugin/qElementPickup/images/icon.png",
+	"description": "element pickup plugin.",
+	"authors" : [
+		{
+			"name" : "karmueo",
+			"email" : "karmueo@163.com"
+		}
+	],
+	"maintainers" : [
+		{
+			"name" : "karmueo",
+			"email" : "karmueo@163.com"
+		}
+	]
+}
