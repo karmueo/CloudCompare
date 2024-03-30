@@ -43,4 +43,6 @@ private:
 	/** 可以在插件中添加任意数量的操作。每个动作将对应于专用中的一个图标工具栏和插件菜单中的一个条目。
 	**/
 	QAction* m_action;
+
+	QAction* m_action2;
 };

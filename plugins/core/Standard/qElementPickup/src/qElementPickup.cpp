@@ -17,6 +17,7 @@
 #include <QtGui>
 
 #include "qElementPickup.h"
+#include "ElementPickupAction.h"
 
 
 //	- 将Qt资源路径传递到info.json文件（来自qElementPickup.qrc文件）
@@ -24,6 +25,7 @@ qElementPickup::qElementPickup( QObject *parent )
 	: QObject( parent )
 	, ccStdPluginInterface( ":/CC/plugin/qElementPickup/info.json" )
 	, m_action( nullptr )
+	, m_action2( nullptr )
 {
 }
 
@@ -38,6 +40,13 @@ void qElementPickup::onNewSelection( const ccHObject::Container &selectedEntitie
 	
 	// 例如-仅当选择了某个内容时才启用我们的操作。
 	m_action->setEnabled( !selectedEntities.empty() );
+
+	if ( m_action2 == nullptr )
+	{
+		return;
+	}
+
+	m_action2->setEnabled( !selectedEntities.empty() );
 }
 
 // 此方法返回插件可以执行的所有“操作”。
@@ -56,7 +65,20 @@ QList<QAction *> qElementPickup::getActions()
 		connect( m_action, &QAction::triggered, this, &qElementPickup::doAction );
 	}
 
-	return { m_action };
+	if( !m_action2 )
+	{
+		m_action2 = new QAction( "Action 2", this );
+		m_action2->setToolTip( "Description of Action 2" );
+		m_action2->setIcon( getIcon() );
+
+		connect( m_action2, &QAction::triggered, this, [this]()
+		{
+			ElementPickup::performElementPickupAction( m_app );
+		});
+	}
+
+
+	return { m_action, m_action2 };
 }
 
 /**
